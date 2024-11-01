@@ -21,16 +21,16 @@ mix <- MixSim(BarOmega = 0.0001, K = 3, p = 2, hom=TRUE)
 # Simulation parameters
 
 # this controls the number of replications, B in the paper
-n_iter <- 3
+n_iter <- 100
 
 # this controls the number of prescreening steps, L in the paper
-n_la <- 10
+n_la <- 50
 
 # This controls the number of background objects
-n_a <- 50
+n_a <- 100
 
 # this controls the number of observations within each background object
-n_w <- 5
+n_w <- 10
 
 # this controls the subpopulation which acts as the subpopulation of interest
 subpop_id <- 1
@@ -115,7 +115,9 @@ for (i in 1:5){
 
 # get mean between the two subpoulations, on the 99% contour of the second subpop.
 # this the the direction from mu1 away from mu2 where it intersects the 99% contour
-source_mean_away <- move_mean((biv_mu1 - biv_mu2), biv_mu1, biv_S_b[,,1], .99)
+direction <- biv_mu1 - biv_mu2
+contour_level <- .99
+source_mean_away <- move_mean(direction, biv_mu1, biv_S_b[,,1], contour_level)
 
 # generate trace
 e_u <- e_u_dat(10, source_mean_away, biv_S_w)
